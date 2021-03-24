@@ -73,24 +73,10 @@ class _BrowsePicturesState extends State<BrowsePictures> {
                 future: getData(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return GridView.builder(
+                    return ListView.builder(
                         itemCount: snapshot.data.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: <Widget>[
-                              Center(
-                                child: CachedNetworkImage(
-                                  imageUrl: snapshot.data[index].hdurl??'',
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                              ),
-                            ],
-                          );
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          return new Text(snapshot.data[index].title);
                         });
                   } else if (snapshot.hasError) {
                     return Text("Error");
