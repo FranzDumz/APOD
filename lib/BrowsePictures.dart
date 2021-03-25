@@ -1,3 +1,5 @@
+import 'package:apod/MainPage.dart';
+import 'package:apod/PictureDetails.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -25,7 +27,7 @@ class _BrowsePicturesState extends State<BrowsePictures> {
   Future<List<ApodModel>> getData() async {
     var queryParameters = {
       'api_key': 'bKWgMFO6n5ADhZfKCNVOn9fAJVIhXvDNX36q7X7o',
-      'count': '50'
+      'count': '20'
     };
     var response = await http.get(
       Uri.https("api.nasa.gov", "/planetary/apod", queryParameters),
@@ -56,48 +58,46 @@ class _BrowsePicturesState extends State<BrowsePictures> {
   Widget build(BuildContext context) {
     final title = 'Browse';
 
-    return MaterialApp(
-        title: title,
-        home: Scaffold(
-            appBar: AppBar(
-              iconTheme: IconThemeData(color: Colors.black),
-              title: Text(
-                "Browse",
-                style: TextStyle(color: Colors.black),
-              ),
-              elevation: 10,
-              backgroundColor: Colors.white,
-            ),
-            body: Center(
-              child: FutureBuilder<List<ApodModel>>(
-                future: getData(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return GridView.builder(
-                        itemCount: snapshot.data.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: <Widget>[
-                              Center(
-                                child: CachedNetworkImage(
-                                  imageUrl: snapshot.data[index].hdurl,
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
+    return Scaffold(
+        body: SafeArea(
+      child: Center(
+        child: FutureBuilder<List<ApodModel>>(
+          future: getData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return new ListView.builder(
+                  itemCount: snapshot.data.length,
+                  cacheExtent: 9999,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    return InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PictureDetails(snapshot.data[index]))),
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: Hero(
+                              tag: "avatar_" + snapshot.data[index].date,
+                              child: CachedNetworkImage(
+                                  imageUrl:
+                                      snapshot.data[index].hdurl ?? "error",
                                   errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                              ),
-                            ],
-                          );
-                        });
-                  } else if (snapshot.hasError) {
-                    return Text("Error");
-                  }
-                  return Text("Loading...");
-                },
-              ),
-            )));
+                                      SizedBox.shrink()),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+            } else if (snapshot.hasError) {
+              return Text("Error");
+            }
+            return CircularProgressIndicator();
+          },
+        ),
+      ),
+    ));
   }
 }

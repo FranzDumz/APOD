@@ -21,7 +21,7 @@ class ApodModel {
       'copyright': copyright,
       'date': date,
       'explanation': explanation,
-      'hdurl': hdurl,
+      'hdurl': hdurl??'error',
       'title': title
     };
   }
