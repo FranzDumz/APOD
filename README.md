@@ -1,10 +1,11 @@
 # apod
 
-A new Flutter project.
+Astronomy Picture of the day
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+This Project is for training puposes.
 
 Documentation for NASA API:
 - [NASA APOD](https://api.nasa.gov/)
