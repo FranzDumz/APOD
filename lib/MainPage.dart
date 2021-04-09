@@ -16,6 +16,7 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
+
   Future<ApodModel> futureAlbum;
   var isLoading = false;
 
