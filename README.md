@@ -12,5 +12,5 @@ Documentation for NASA API:
 - [API Unit Testing sample](https://medium.com/codechai/mocking-http-request-in-flutter-c2596eea55f2)
 - [Hero Animation](https://flutter.dev/docs/development/ui/animations/hero-animations)
 - [Image Network](https://flutter.dev/docs/cookbook/images/network-image)
-- [MVC Pattern](https://medium.com/flutter-community/mvc-in-flutter-part-1-51d5eba081a3)
+- [BLoC Pattern](https://medium.com/codechai/architecting-your-flutter-project-bd04e144a8f1)
 
