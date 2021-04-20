@@ -1,5 +1,5 @@
-import 'package:apod/MainPage.dart';
-import 'package:apod/PictureDetails.dart';
+
+import 'file:///C:/Users/Asus/FlutterProjects/apod/lib/ui/PictureDetails.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -8,7 +8,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import 'ApodModel.dart';
+import 'package:apod/models/ApodModel.dart';
 
 class BrowsePictures extends StatefulWidget {
   @override
@@ -56,8 +56,6 @@ class _BrowsePicturesState extends State<BrowsePictures> {
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Browse';
-
     return Scaffold(
         body: SafeArea(
       child: Center(

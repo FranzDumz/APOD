@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import "package:flutter/material.dart";
-import "ApodModel.dart";
+import 'package:apod/models/ApodModel.dart';
 
 class PictureDetails extends StatelessWidget {
-  final ApodModel _user;
+  final ApodModel apodModel;
 
-  PictureDetails(this._user);
+  PictureDetails(this.apodModel);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class PictureDetails extends StatelessWidget {
             Container(
               /// This is the important part, we need [Hero] widget with unique tag but same as Hero's tag in [User] widget.
               child: Hero(
-                tag: "avatar_" + _user.date,
+                tag: "avatar_" + apodModel.date,
                 child: CachedNetworkImage(
-                  imageUrl: _user.hdurl ?? "error",
+                  imageUrl: apodModel.hdurl ?? "error",
                   placeholder: (context, url) => LinearProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
@@ -31,7 +31,7 @@ class PictureDetails extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      _user.title,
+                      apodModel.title,
                       style: TextStyle(
                           color: const Color(0xFF273A4D),
                           fontWeight: FontWeight.w900,
@@ -41,7 +41,7 @@ class PictureDetails extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      _user.copyright ?? 'Unknown',
+                      apodModel.copyright ?? 'Unknown',
                       style: TextStyle(
                           color: const Color(0xFF273A4D),
                           fontWeight: FontWeight.w500,
@@ -51,7 +51,7 @@ class PictureDetails extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      _user.date,
+                      apodModel.date,
                       style: TextStyle(
                           color: const Color(0xFF273A4D),
                           fontWeight: FontWeight.w500,
@@ -62,7 +62,7 @@ class PictureDetails extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    _user.explanation,
+                    apodModel.explanation,
                     style: TextStyle(
                         color: const Color(0xFF273A4D),
                         fontWeight: FontWeight.w300,

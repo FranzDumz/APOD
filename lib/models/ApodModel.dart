@@ -16,12 +16,13 @@ class ApodModel {
         hdurl: json['hdurl'] as String,
         title: json['title'] as String);
   }
+
   Map<String, dynamic> toJson() {
     return {
       'copyright': copyright,
       'date': date,
       'explanation': explanation,
-      'hdurl': hdurl??'error',
+      'hdurl': hdurl ?? 'error',
       'title': title
     };
   }

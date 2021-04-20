@@ -13,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String _versionName = 'V1.0';
   final splashDelay = 5;
 
   @override

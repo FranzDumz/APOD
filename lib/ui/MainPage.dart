@@ -1,14 +1,10 @@
-import 'dart:convert';
-
-import 'package:apod/BrowsePictures.dart';
+import 'file:///C:/Users/Asus/FlutterProjects/apod/lib/ui/BrowsePictures.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-
-import 'ApodModel.dart';
+import 'package:apod/blocs/apod_bloc.dart';
+import 'package:apod/models/ApodModel.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -16,47 +12,15 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-
-  Future<ApodModel> futureAlbum;
-  var isLoading = false;
-
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   DateTime selectedDate = DateTime.now();
   String formattedDate;
 
-  Future<ApodModel> getData(String date) async {
-    var queryParameters = {
-      'api_key': 'bKWgMFO6n5ADhZfKCNVOn9fAJVIhXvDNX36q7X7o',
-      'date': date
-    };
-    var response = await http.get(
-      Uri.https("api.nasa.gov", "/planetary/apod", queryParameters),
-    );
-
-    print(response.body.toString());
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-
-      return ApodModel.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Something Went Wrong');
-    }
-  }
-
-  Stream<ApodModel> getnewData(String date) async* {
-    await Future.delayed(Duration(seconds: 1));
-    yield await getData(date);
-  }
-
   @override
   void initState() {
     super.initState();
-    String formattedDate = formatter.format(now);
-    futureAlbum = getData(formattedDate);
+    bloc.getData(formattedDate);
   }
 
   _selectDate(BuildContext context) async {
@@ -70,7 +34,7 @@ class MainPageState extends State<MainPage> {
       setState(() {
         selectedDate = picked;
         formattedDate = formatter.format(selectedDate);
-        getnewData(formattedDate);
+        bloc.getData(formattedDate);
       });
   }
 
@@ -110,7 +74,7 @@ class MainPageState extends State<MainPage> {
         ),
         body: Center(
           child: StreamBuilder<ApodModel>(
-            stream: getnewData(formattedDate),
+            stream: bloc.fetchData,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
