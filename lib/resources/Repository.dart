@@ -8,6 +8,9 @@ class Repository {
 
   final apodApiProvider = ApiProvider();
 
-  Future<ApodModel> fetchData(String date) => apodApiProvider.getData(date);
+  Future<ApodModel> fetchData(String date) => apodApiProvider.getDataByDates(date);
+
+  Future<List<ApodModel>> fetchRandomData() => apodApiProvider.getRandomData();
+
 }
 

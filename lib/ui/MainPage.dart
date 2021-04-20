@@ -1,10 +1,13 @@
 import 'file:///C:/Users/Asus/FlutterProjects/apod/lib/ui/BrowsePictures.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:apod/blocs/apod_bloc.dart';
 import 'package:apod/models/ApodModel.dart';
+
+import 'package:intl/intl.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
+
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   DateTime selectedDate = DateTime.now();
@@ -20,7 +24,7 @@ class MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    bloc.getData(formattedDate);
+    bloc.getDatabyDate(formattedDate);
   }
 
   _selectDate(BuildContext context) async {
@@ -34,7 +38,7 @@ class MainPageState extends State<MainPage> {
       setState(() {
         selectedDate = picked;
         formattedDate = formatter.format(selectedDate);
-        bloc.getData(formattedDate);
+        bloc.getDatabyDate(formattedDate);
       });
   }
 
@@ -74,7 +78,7 @@ class MainPageState extends State<MainPage> {
         ),
         body: Center(
           child: StreamBuilder<ApodModel>(
-            stream: bloc.fetchData,
+            stream: bloc.fetchDataByDate,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();

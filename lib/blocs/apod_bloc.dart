@@ -10,12 +10,22 @@ class ApodBloc {
   final _repository = Repository();
   final apodFetcher = PublishSubject<ApodModel>();
 
-  Stream<ApodModel> get fetchData => apodFetcher.stream;
+  Stream<ApodModel> get fetchDataByDate => apodFetcher.stream;
 
-  getData(String date) async {
+  
+
+  getDatabyDate(String date) async {
     ApodModel itemModel = await _repository.fetchData(date);
     apodFetcher.sink.add(itemModel);
   }
+
+
+  Future<List<ApodModel>> getDatabyRandom() async {
+    List<ApodModel> itemModel2 = await _repository.fetchRandomData();
+    return itemModel2;
+  }
+
+
 
   dispose() {
     apodFetcher.close();
