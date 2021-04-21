@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'MainPage.dart';
+import 'package:apod/reusables/Strings.dart';
 
 class SplashScreen extends StatefulWidget {
   final Color backgroundColor = Colors.white;
@@ -61,14 +62,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'APOD',
+                        text: Strings.appTitle,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
                             fontSize: 70),
                       ),
                       TextSpan(
-                        text: '\nAstronomy Picture \nof the Day.',
+                        text: Strings.appTitleMeaning,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w300,

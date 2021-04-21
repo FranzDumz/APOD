@@ -1,11 +1,10 @@
 import 'file:///C:/Users/Asus/FlutterProjects/apod/lib/ui/PictureDetails.dart';
+import 'package:apod/reusables/Strings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
-import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
+
 import 'package:apod/blocs/apod_bloc.dart';
 import 'package:apod/models/ApodModel.dart';
 
@@ -15,13 +14,9 @@ class BrowsePictures extends StatefulWidget {
 }
 
 class _BrowsePicturesState extends State<BrowsePictures> {
-
-  var isLoading = false;
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -60,7 +55,7 @@ class _BrowsePicturesState extends State<BrowsePictures> {
                     );
                   });
             } else if (snapshot.hasError) {
-              return Text("Error");
+              return Text(Strings.onError);
             }
             return CircularProgressIndicator();
           },

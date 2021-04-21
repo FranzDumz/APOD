@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 class ApodBloc {
 
 
-  final _repository = Repository();
+  final repository = Repository();
   final apodFetcher = PublishSubject<ApodModel>();
 
   Stream<ApodModel> get fetchDataByDate => apodFetcher.stream;
@@ -15,13 +15,13 @@ class ApodBloc {
   
 
   getDatabyDate(String date) async {
-    ApodModel itemModel = await _repository.fetchData(date);
+    ApodModel itemModel = await repository.fetchData(date);
     apodFetcher.sink.add(itemModel);
   }
 
 
   Future<List<ApodModel>> getDatabyRandom() async {
-    List<ApodModel> itemModel2 = await _repository.fetchRandomData();
+    List<ApodModel> itemModel2 = await repository.fetchRandomData();
     return itemModel2;
   }
 

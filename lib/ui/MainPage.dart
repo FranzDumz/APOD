@@ -1,12 +1,10 @@
 import 'file:///C:/Users/Asus/FlutterProjects/apod/lib/ui/BrowsePictures.dart';
-
+import 'package:apod/reusables/Strings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:apod/blocs/apod_bloc.dart';
 import 'package:apod/models/ApodModel.dart';
-
 import 'package:intl/intl.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,7 +13,6 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-
   var now = new DateTime.now();
   var formatter = new DateFormat('yyyy-MM-dd');
   DateTime selectedDate = DateTime.now();
@@ -49,7 +46,7 @@ class MainPageState extends State<MainPage> {
           iconTheme: IconThemeData(color: Colors.black),
           automaticallyImplyLeading: false,
           title: Text(
-            "APOD",
+            Strings.appTitle,
             style: TextStyle(color: Colors.black),
           ),
           elevation: 10,
